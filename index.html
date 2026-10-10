@@ -1,107 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DarkX Team - Video</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      background: #080b12;
-      color: white;
-      font-family: Arial, sans-serif;
-    }
-
-    header {
-      padding: 18px 20px;
-      background: #111827;
-      border-bottom: 1px solid #263244;
-    }
-
-    header h1 {
-      margin: 0;
-      color: #38bdf8;
-      font-size: 24px;
-    }
-
-    main {
-      max-width: 900px;
-      margin: 30px auto;
-      padding: 0 16px;
-    }
-
-    .video-container {
-      width: 100%;
-      aspect-ratio: 9 / 16;
-      max-width: 420px;
-      margin: auto;
-      background: #000;
-      border-radius: 14px;
-      overflow: hidden;
-    }
-
-    .video-container iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    .details {
-      max-width: 420px;
-      margin: 20px auto;
-    }
-
-    .details h2 {
-      font-size: 22px;
-      margin-bottom: 8px;
-    }
-
-    .details p {
-      color: #aab5c5;
-      line-height: 1.6;
-    }
-
-    footer {
-      text-align: center;
-      color: #718096;
-      padding: 25px;
-      font-size: 13px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SBS Live</title>
+<style>
+:root{--bg:#0e1116;--panel:#171c24;--text:#e9edf2;--muted:#8b95a5;--accent:#2f7df6;--live:#e5484d;color-scheme:dark light}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f3f5f8;--panel:#fff;--text:#12161c;--muted:#5d6877}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;min-height:100vh;display:flex;justify-content:center;padding:16px}
+main{width:100%;max-width:960px}
+header{display:flex;align-items:center;gap:12px;margin:8px 0 14px}
+h1{font-size:1.3rem;margin:0}
+.badge{background:var(--live);color:#fff;font-size:.75rem;font-weight:700;padding:3px 9px;border-radius:99px;display:none}
+.badge.on{display:inline-block}
+.player{background:#000;border-radius:12px;overflow:hidden;aspect-ratio:16/9;position:relative}
+video{width:100%;height:100%;display:block;background:#000}
+.status{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;color:#fff;background:rgba(0,0,0,.55);font-size:.95rem}
+.status.hide{display:none}
+.bar{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+button{background:var(--panel);color:var(--text);border:1px solid var(--muted);border-radius:8px;padding:10px 16px;font-size:.95rem;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+p.note{color:var(--muted);font-size:.85rem;margin-top:14px}
+</style>
 </head>
-
 <body>
-  <header>
-    <h1>DarkX Video</h1>
-  </header>
+<main>
+  <header><h1>SBS Live</h1><span class="badge" id="badge">LIVE</span></header>
+  <div class="player">
+    <video id="video" controls playsinline autoplay muted></video>
+    <div class="status" id="status">Inapakia mtiririko…</div>
+  </div>
+  <div class="bar">
+    <button class="primary" id="play">Cheza</button>
+    <button id="mute">Washa sauti</button>
+    <button id="reload">Pakia upya</button>
+    <button id="fs">Skrini nzima</button>
+  </div>
+  <p class="note">Ikiwa video haichezi, bonyeza "Pakia upya". Mtiririko unaweza kuzuiwa na mmiliki wa chanzo.</p>
+</main>
 
-  <main>
-    <div class="video-container">
-      <iframe
-        src="https://videobb.com/embed/vt2uhe5"
-        title="DarkX Team Video"
-        allow="autoplay; fullscreen; picture-in-picture"
-        allowfullscreen
-        loading="lazy">
-      </iframe>
-    </div>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
+<script>
+(function(){
+  var SRC = "https://streaming-a-802.cdn.nextologies.com/SBS_Live_HD/live/SBS_Live_HD_1500k/chunks.m3u8";
+  var video = document.getElementById("video");
+  var statusEl = document.getElementById("status");
+  var badge = document.getElementById("badge");
+  var hls = null;
 
-    <section class="details">
-      <h2>DarkX Team</h2>
-      <p>
-        Watch this video on DarkX Video.
-        Enjoy the content!
-      </p>
-    </section>
-  </main>
+  function msg(t){ statusEl.textContent = t; statusEl.classList.remove("hide"); badge.classList.remove("on"); }
+  function ok(){ statusEl.classList.add("hide"); badge.classList.add("on"); }
 
-  <footer>
-    © 2026 DarkX Video. All rights reserved.
-  </footer>
+  function start(){
+    if (hls) { hls.destroy(); hls = null; }
+    msg("Inapakia mtiririko…");
+    if (window.Hls && Hls.isSupported()) {
+      hls = new Hls({ lowLatencyMode: true, liveSyncDurationCount: 3 });
+      hls.loadSource(SRC);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, function(){ video.play().catch(function(){}); });
+      hls.on(Hls.Events.ERROR, function(e, d){
+        if (!d.fatal) return;
+        if (d.type === Hls.ErrorTypes.NETWORK_ERROR) { msg("Tatizo la mtandao. Inajaribu tena…"); setTimeout(function(){ hls && hls.startLoad(); }, 3000); }
+        else if (d.type === Hls.ErrorTypes.MEDIA_ERROR) { hls.recoverMediaError(); }
+        else { msg("Imeshindwa kucheza mtiririko huu."); }
+      });
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      video.src = SRC;
+      video.play().catch(function(){});
+    } else {
+      msg("Kivinjari chako hakiungi mkono HLS.");
+    }
+  }
+
+  video.addEventListener("playing", ok);
+  video.addEventListener("waiting", function(){ statusEl.textContent = "Inabuffer…"; statusEl.classList.remove("hide"); });
+  document.getElementById("play").onclick = function(){ video.play(); };
+  document.getElementById("mute").onclick = function(){
+    video.muted = !video.muted;
+    this.textContent = video.muted ? "Washa sauti" : "Zima sauti";
+  };
+  document.getElementById("reload").onclick = start;
+  document.getElementById("fs").onclick = function(){
+    var el = video.parentElement;
+    (el.requestFullscreen || el.webkitRequestFullscreen || function(){}).call(el);
+  };
+  start();
+})();
+</script>
 </body>
 </html>
