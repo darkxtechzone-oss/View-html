@@ -1,462 +1,347 @@
+
 <!DOCTYPE html>
-<html lang="sw">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes">
-<title>DarkX YT · Music & Video</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DarkX TECH | Official Apps</title>
 
 <style>
-  /* ----- RESET & GLOBAL ----- */
-  * {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
+    font-family: Arial, sans-serif;
+}
 
-  :root {
-    --bg: #f0f5fe;
-    --card: #ffffff;
-    --text: #0b132b;
-    --sub: #5e6f8d;
-    --blue: #258cff;
-    --blue-dark: #0066e0;
-    --red: #ff3b4a;
-    --line: #e0e9f5;
-    --shadow-sm: 0 10px 25px -8px rgba(0, 40, 80, 0.12);
-    --shadow-md: 0 20px 35px -10px rgba(0, 50, 120, 0.2);
-    --radius-card: 24px;
-    --radius-btn: 60px;
-    --glow: 0 0 20px rgba(37, 140, 255, 0.5);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #090d17;
-      --card: #111827;
-      --text: #f0f6ff;
-      --sub: #9aaec9;
-      --line: #23304a;
-      --blue: #3b9eff;
-      --blue-dark: #1e7ae0;
-      --shadow-sm: 0 15px 30px -10px rgba(0, 0, 0, 0.7);
-      --shadow-md: 0 20px 40px -12px #00000090;
-      --glow: 0 0 25px #258cff70;
-    }
-  }
-
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    transition: background 0.3s ease, color 0.2s ease;
+body {
+    background: #07090f;
+    color: white;
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-  }
+}
 
-  main {
-    width: 100%;
-    max-width: 540px;
-    margin: 0 auto;
-    padding: 20px 0 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+header {
+    padding: 25px 15px;
+    text-align: center;
+    background: #101522;
+    border-bottom: 1px solid #252c3b;
+}
 
-  /* ----- TYPOGRAPHY ----- */
-  h1 {
-    font-size: clamp(2.6rem, 10vw, 3.8rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    margin: 16px 0 4px;
-    line-height: 1.1;
-    background: linear-gradient(135deg, var(--text) 30%, var(--blue) 80%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  h1 span {
-    background: linear-gradient(135deg, #ff6a6a, #ff2f4f);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  h2 {
-    font-size: 1.3rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    margin: 0 0 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  h2::before {
-    content: "";
-    display: inline-block;
-    width: 5px;
-    height: 22px;
-    background: var(--blue);
-    border-radius: 10px;
-    margin-right: 6px;
-  }
-
-  p {
-    color: var(--sub);
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-
-  /* ----- LOGO / BADGE ----- */
-  .logo-wrapper {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 6px;
-  }
-
-  .logo {
-    width: 92px;
-    height: 92px;
-    display: grid;
-    place-items: center;
-    border-radius: 28px;
-    background: radial-gradient(circle at 30% 30%, #1e2a4a, #040a14);
-    border: 2px solid var(--blue);
-    color: white;
-    font-size: 2.3rem;
+.logo {
+    font-size: 30px;
     font-weight: 900;
-    letter-spacing: 1px;
-    box-shadow: var(--glow), inset 0 0 18px #258cff30;
-    transition: transform 0.2s ease;
-  }
+    color: #00d9ff;
+    letter-spacing: 2px;
+}
 
-  .logo:hover {
-    transform: scale(1.02);
-  }
+header p {
+    color: #9da9ba;
+    margin-top: 8px;
+}
 
-  .logo span {
-    color: var(--blue);
-    text-shadow: 0 0 12px var(--blue);
-  }
+.container {
+    max-width: 650px;
+    margin: 35px auto;
+    padding: 15px;
+}
 
-  /* ----- HEADER TEXT ----- */
-  header {
+.heading {
     text-align: center;
-    padding: 10px 0 0;
-  }
+    margin-bottom: 25px;
+}
 
-  .subhead {
-    max-width: 400px;
-    margin: 8px auto 0;
-    font-size: 1.05rem;
-    color: var(--sub);
-    padding: 0 8px;
-  }
+.heading h2 {
+    font-size: 26px;
+    margin-bottom: 10px;
+}
 
-  /* ----- BUTTONS & CARDS ----- */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 18px 24px;
-    width: 100%;
-    border: 0;
-    border-radius: var(--radius-btn);
-    background: var(--blue);
-    color: white;
-    font-size: 1.08rem;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1);
-    box-shadow: 0 6px 16px -4px var(--blue);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    outline: none;
-    margin-top: 12px;
-    white-space: nowrap;
-  }
+.heading p {
+    color: #9da9ba;
+    font-size: 14px;
+}
 
-  .btn:hover {
-    background: var(--blue-dark);
-    box-shadow: 0 12px 24px -6px var(--blue);
-    transform: translateY(-2px);
-  }
+.app-card {
+    background: #111827;
+    border: 1px solid #263449;
+    border-radius: 15px;
+    padding: 22px;
+    margin-bottom: 18px;
+}
 
-  .btn:active {
-    transform: translateY(1px);
-    box-shadow: 0 4px 10px -2px var(--blue);
-  }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--blue);
-    border: 1.8px solid var(--blue);
-    box-shadow: none;
-    font-weight: 600;
-  }
-
-  .btn-outline:hover {
-    background: rgba(37, 140, 255, 0.08);
-    box-shadow: 0 6px 16px -6px var(--blue);
-    transform: translateY(-2px);
-    color: var(--blue);
-  }
-
-  .card {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-card);
-    padding: 24px 22px;
-    margin-top: 16px;
-    box-shadow: var(--shadow-sm);
-    backdrop-filter: blur(2px);
-    transition: box-shadow 0.2s ease, border-color 0.2s ease;
-  }
-
-  .card:hover {
-    box-shadow: var(--shadow-md);
-    border-color: var(--blue);
-  }
-
-  .number-display {
-    font-size: 1.9rem;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    background: linear-gradient(to right, var(--text), var(--blue));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    margin: 16px 0 12px;
-    padding: 6px 0;
-    font-variant-numeric: tabular-nums;
-    word-break: break-word;
-  }
-
-  .recipient {
+.app-top {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.98rem;
-    background: rgba(37, 140, 255, 0.08);
-    padding: 10px 14px;
-    border-radius: 60px;
-    margin-top: 14px;
-    color: var(--text);
-    font-weight: 500;
-    border-left: 4px solid var(--blue);
-  }
+    gap: 15px;
+    margin-bottom: 18px;
+}
 
-  .recipient b {
-    color: var(--blue);
-    font-weight: 700;
-  }
+.app-icon {
+    width: 65px;
+    height: 65px;
+    border-radius: 14px;
+    background: linear-gradient(135deg,#00d9ff,#174cff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    font-weight: bold;
+}
 
-  .copy-feedback {
-    font-size: 0.9rem;
-    color: var(--blue);
+.app-info h3 {
+    font-size: 21px;
+}
+
+.app-info p {
+    color: #9da9ba;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+.download {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: #00c8ed;
+    color: #061018;
     text-align: center;
-    margin-top: 8px;
-    min-height: 22px;
-    font-weight: 500;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
+    text-decoration: none;
+    border-radius: 9px;
+    font-weight: bold;
+    margin-top: 12px;
+}
 
-  .copy-feedback.show {
-    opacity: 1;
-  }
+.download:hover {
+    background: #42e4ff;
+}
 
-  /* ----- FOOTER ----- */
-  footer {
+.notice {
+    background: #191d2a;
+    border-left: 4px solid #ffb52e;
+    padding: 17px;
+    border-radius: 8px;
+    margin: 25px 0;
+}
+
+.notice h3 {
+    color: #ffbf45;
+    margin-bottom: 9px;
+}
+
+.notice p {
+    color: #c0c8d5;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.license {
+    background: #111827;
+    border: 1px solid #29354a;
+    border-radius: 13px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.license h3 {
+    color: #00d9ff;
+    margin-bottom: 12px;
+}
+
+.license p {
+    color: #c0c8d5;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.agree {
+    display: flex;
+    gap: 10px;
+    margin-top: 17px;
+    font-size: 13px;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.agree input {
+    width: 18px;
+    height: 18px;
+    accent-color: #00d9ff;
+    flex-shrink: 0;
+}
+
+#downloadNotice {
+    color: #ffbf45;
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+.channel {
+    display: block;
     text-align: center;
-    color: var(--sub);
-    font-size: 0.8rem;
-    padding: 28px 0 10px;
-    letter-spacing: 0.3px;
-    border-top: 1px solid var(--line);
-    margin-top: 24px;
-    opacity: 0.8;
-  }
+    text-decoration: none;
+    padding: 16px;
+    background: #19bd69;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-top: 22px;
+}
 
-  /* ----- UTILS & ANIMATIONS ----- */
-  .mt-2 { margin-top: 8px; }
-  .mt-3 { margin-top: 16px; }
-  .text-center { text-align: center; }
-  .flex-col { display: flex; flex-direction: column; }
+.channel:hover {
+    background: #12a95b;
+}
 
-  /* subtle entrance */
-  header, .card {
-    animation: fadeUp 0.45s ease-out forwards;
-  }
+footer {
+    text-align: center;
+    padding: 25px 10px;
+    color: #78869a;
+    font-size: 12px;
+    border-top: 1px solid #202a39;
+}
 
-  .card:nth-child(2) { animation-delay: 0.05s; }
-  .card:nth-child(3) { animation-delay: 0.1s; }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* better touch targets */
-  button, .btn, a {
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  /* responsive fine-tune */
-  @media (max-width: 380px) {
-    .number-display { font-size: 1.6rem; }
-    .btn { padding: 15px 16px; font-size: 1rem; }
-    .card { padding: 18px 16px; }
-  }
 </style>
 </head>
 
 <body>
-<main>
 
-  <!-- LOGO & HEADER -->
-  <header>
-    <div class="logo-wrapper">
-      <div class="logo">D<span>X</span></div>
+<header>
+    <div class="logo">DARKX TECH</div>
+    <p>Official Application Download Center</p>
+</header>
+
+<div class="container">
+
+    <div class="heading">
+        <h2>Welcome to DarkX TECH</h2>
+        <p>Discover, access and download our official applications.</p>
     </div>
 
-    <h1>DarkX <span>YT</span></h1>
+    <div class="app-card">
+        <div class="app-top">
+            <div class="app-icon">TV</div>
+            <div class="app-info">
+                <h3>DarkX TV</h3>
+                <p>Application Size: 8 MB</p>
+                <p>Official DarkX Application</p>
+            </div>
+        </div>
+        <a class="download app-download"
+           data-link="DARKX_TV_DOWNLOAD_LINK"
+           href="#">DOWNLOAD DARKX TV</a>
+    </div>
 
-    <p class="subhead">
-      Tafuta, sikiliza na pakua muziki na video kupitia Android app ya DarkX YT.
-    </p>
+    <div class="app-card">
+        <div class="app-top">
+            <div class="app-icon">YT</div>
+            <div class="app-info">
+                <h3>DarkX YT</h3>
+                <p>Application Size: 47 MB</p>
+                <p>Official DarkX Application</p>
+            </div>
+        </div>
+        <a class="download app-download"
+           data-link="https://github.com/da..."
+           href="#">DOWNLOAD DARKX YT</a>
+    </div>
 
-    <a class="btn" href="https://github.com/darkxtechzone-oss/musicdownloader-releases/releases/download/v3/DarkXYT.apk" style="margin-top: 22px;">
-      ⬇ PAKUA APK
+    <div class="notice">
+        <h3>Important Purchase Notice</h3>
+        <p>
+        Some features and services within DarkX applications
+        may require an in-app purchase or payment.
+        Please review the purchase terms before making
+        any transaction. Downloads do not automatically
+        grant access to paid features.
+        </p>
+    </div>
+
+    <div class="license">
+        <h3>Software License Agreement</h3>
+
+        <p>
+        By downloading or using any DarkX TECH application,
+        you agree to comply with the software license and
+        applicable laws.
+        <br><br>
+        1. Unauthorized copying, modification, redistribution
+        or reverse engineering is prohibited.
+        <br>
+        2. Hacking, bypassing security systems or attempting
+        unauthorized access is strictly prohibited.
+        <br>
+        3. Applications must not be reproduced or
+        redistributed without written permission.
+        <br>
+        4. Violations may result in account or service
+        termination and legal action or other penalties
+        where permitted by applicable law.
+        <br>
+        5. All application trademarks and original
+        intellectual property remain the property
+        of their respective owners.
+        <br><br>
+        Please read and understand these terms before
+        proceeding.
+        </p>
+
+        <label class="agree">
+            <input type="checkbox" id="accept">
+            <span>I have read and agree to the DarkX TECH
+            Software License Agreement and Purchase Notice.</span>
+        </label>
+
+        <p id="downloadNotice">
+            Please accept the license agreement to enable downloads.
+        </p>
+    </div>
+
+    <a class="channel"
+       href="https://whatsapp.com/channel/0029VbCtavfEFeXhna7jux3b"
+       target="_blank">
+       JOIN OUR OFFICIAL WHATSAPP CHANNEL
     </a>
-  </header>
 
-  <!-- DONATION CARD -->
-  <div class="card">
-    <h2>♥ Changia mradi</h2>
-    <p style="font-size: 0.98rem;">
-      Saidia kuendeleza DarkX YT kwa kuchangia gharama za hosting na maendeleo.
-    </p>
+</div>
 
-    <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 6px;">
-      <span style="color: var(--sub); font-weight: 500;">Mixx by Yas</span>
-    </div>
-
-    <div class="number-display" id="numDisplay">0775710774</div>
-
-    <button class="btn btn-outline" onclick="copyNumber()" style="width: 100%;">
-      📋 Nakili namba
-    </button>
-
-    <div id="copyMsg" class="copy-feedback">&nbsp;</div>
-
-    <div class="recipient">
-      <span>👤 Jina la mpokeaji:</span>
-      <b>Jamila Sefu</b>
-    </div>
-  </div>
-
-  <!-- DEVELOPER CARD -->
-  <div class="card">
-    <h2>Developer</h2>
-    <p style="font-weight: 500; color: var(--text); margin-bottom: 4px;">Mrxdeveloper · DarkX Tech</p>
-    <p style="font-size: 0.95rem;">Mawasiliano ya moja kwa moja kwa msaada au ushirikiano.</p>
-
-    <a class="btn" href="mailto:mrxdeveloper2@gmail.com" style="margin-top: 16px;">
-      ✉ Wasiliana
-    </a>
-  </div>
-
-  <footer>
-    © 2026 DarkX YT · All rights reserved.
-  </footer>
-
-</main>
+<footer>
+    © 2026 DarkX TECH. All Rights Reserved.
+    <br><br>
+    Official DarkX TECH Application Center
+</footer>
 
 <script>
-  (function() {
-    const phoneNumber = "0775710774";
-    const numberDisplay = document.getElementById('numDisplay');
-    const copyMsg = document.getElementById('copyMsg');
+const accept = document.getElementById("accept");
+const downloads = document.querySelectorAll(".app-download");
+const notice = document.getElementById("downloadNotice");
 
-    // Copy number function with modern feedback
-    window.copyNumber = function() {
-      const showMessage = (msg, isSuccess = true) => {
-        copyMsg.textContent = msg;
-        copyMsg.style.color = isSuccess ? 'var(--blue)' : '#ff6b6b';
-        copyMsg.classList.add('show');
-        clearTimeout(window.copyMsgTimer);
-        window.copyMsgTimer = setTimeout(() => {
-          copyMsg.classList.remove('show');
-          copyMsg.textContent = '\u00A0'; // non-breaking space
-        }, 2500);
-      };
+downloads.forEach(button => {
+    button.addEventListener("click", function(event) {
+        const link = this.dataset.link;
 
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(phoneNumber)
-          .then(() => showMessage('✅ Namba imenakiliwa!', true))
-          .catch(() => {
-            // Fallback for insecure contexts
-            fallbackCopy();
-          });
-      } else {
-        fallbackCopy();
-      }
-
-      function fallbackCopy() {
-        try {
-          const textarea = document.createElement('textarea');
-          textarea.value = phoneNumber;
-          textarea.style.position = 'fixed';
-          textarea.style.opacity = '0';
-          textarea.style.left = '-9999px';
-          document.body.appendChild(textarea);
-          textarea.select();
-          document.execCommand('copy');
-          document.body.removeChild(textarea);
-          showMessage('✅ Namba imenakiliwa!', true);
-        } catch (err) {
-          showMessage('⚠️ Nakili namba: ' + phoneNumber, false);
+        if (!accept.checked) {
+            event.preventDefault();
+            notice.textContent =
+                "You must accept the license agreement first.";
+            return;
         }
-      }
-    };
 
-    // Optional: animate number slightly on hover
-    if (numberDisplay) {
-      numberDisplay.addEventListener('mouseenter', () => {
-        numberDisplay.style.transition = 'transform 0.2s';
-        numberDisplay.style.transform = 'scale(1.02)';
-      });
-      numberDisplay.addEventListener('mouseleave', () => {
-        numberDisplay.style.transform = 'scale(1)';
-      });
-    }
+        if (!link || link.includes("...") ||
+            link === "DARKX_TV_DOWNLOAD_LINK") {
+            event.preventDefault();
+            notice.textContent =
+                "Download link is not configured yet.";
+            return;
+        }
 
-    // Additional polish: add a small effect on cards (just a safety, not required)
-    document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('click', (e) => {
-        // Do nothing if the click is on a button or link (avoid interference)
-        if (e.target.closest('button, a')) return;
-        // Subtle highlight
-        card.style.transition = 'box-shadow 0.1s';
-        card.style.boxShadow = '0 0 0 2px var(--blue), var(--shadow-md)';
-        setTimeout(() => {
-          card.style.boxShadow = '';
-        }, 180);
-      });
+        this.href = link;
     });
-  })();
+});
+
+accept.addEventListener("change", function() {
+    notice.textContent = this.checked
+        ? "License accepted. You can proceed with downloads."
+        : "Please accept the license agreement to enable downloads.";
+});
 </script>
 
 </body>
-      </html>
+</html>
